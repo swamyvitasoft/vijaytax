@@ -1,6 +1,3 @@
-<?php
-
-?>
 <div class="main-wrapper">
     <div class="preloader">
         <div class="lds-ripple">
@@ -20,96 +17,86 @@
                 <?php endif ?>
             </div>
             <div class="row justify-content-md-center">
-                <?php
-                if ($loggedInfo['role'] == "Admin") {
-                ?>
-                    <div class="col">
-                        <a href="#">
-                            <div class="card card-hover">
-                                <div class="box bg-warning text-center">
-                                    <h1 class="font-light text-white">
-                                        A
-                                    </h1>
-                                    <h6 class="text-white">AA</h6>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                <?php
-                }
-                ?>
                 <div class="col">
                     <div class="card card-hover customer">
                         <div class="box bg-primary text-center">
                             <h1 class="font-light text-white">
-                                B
+                                Income
                             </h1>
-                            <h6 class="text-white">BB</h6>
+                            <i class="fa fa-plus-circle me-1 ms-1 text-white"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <a href="#">
+                        <div class="card card-hover">
+                            <div class="box bg-success text-center">
+                                <h1 class="font-light text-white">
+                                    Expense
+                                </h1>
+                                <i class="fa fa-minus-circle me-1 ms-1 text-white"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col">
+                    <div class="card card-hover">
+                        <div class="box bg-cyan text-center">
+                            <h1 class="font-light text-white">
+                                Today
+                            </h1>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="text-white float-start">Income</h6>
+                                <h6 class="text-white float-end">100</h6>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="text-white float-start">Expense</h6>
+                                <h6 class="text-white float-end">100</h6>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-md-center">
                 <div class="col">
-                    <a href="#">
-                        <div class="card card-hover">
-                            <div class="box bg-success text-center">
-                                <h1 class="font-light text-white">
-                                    C
-                                </h1>
-                                <h6 class="text-white">CC</h6>
+                    <div class="card card-hover">
+                        <div class="box bg-danger text-center">
+                            <h1 class="font-light text-white">
+                                This Month
+                            </h1>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="text-white float-start">Income</h6>
+                                <h6 class="text-white float-end">100</h6>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="text-white float-start">Expense</h6>
+                                <h6 class="text-white float-end">100</h6>
                             </div>
                         </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#">
-                        <div class="card card-hover">
-                            <div class="box bg-danger text-center">
-                                <h1 class="font-light text-white">
-                                    D
-                                </h1>
-                                <h6 class="text-white">DD</h6>
-                            </div>
-                        </div>
-                    </a>
+                    </div>
                 </div>
             </div>
-            <?php
-            if ($loggedInfo['role'] == "Drone") {
-            ?>
-                <div class="row justify-content-md-center">
-                    <div class="col">
-                        <a href="#">
-                            <div class="card card-hover">
-                                <div class="box bg-cyan text-center">
-                                    <h1 class="font-light text-white">
-                                        E
-                                    </h1>
-                                    <h6 class="text-white">EE</h6>
-                                </div>
+            <div class="row justify-content-md-center">
+                <div class="col">
+                    <div class="card card-hover">
+                        <div class="box bg-warning text-center">
+                            <h1 class="font-light text-white">
+                                This Year
+                            </h1>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="text-white float-start">Income</h6>
+                                <h6 class="text-white float-end">100</h6>
                             </div>
-                        </a>
-                    </div>
-                </div>
-            <?php
-            } else {
-            ?>
-                <div class="row justify-content-md-center">
-                    <div class="col">
-                        <div class="card card-hover">
-                            <div class="box bg-cyan text-center">
-                                <h1 class="font-light text-white">
-                                    F
-                                </h1>
-                                <h6 class="text-white">FF</h6>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="text-white float-start">Expense</h6>
+                                <h6 class="text-white float-end">100</h6>
                             </div>
                         </div>
                     </div>
                 </div>
-            <?php
-            }
-            ?>
+            </div>
         </div>
     </div>
     <?= view('common/footer') ?>
