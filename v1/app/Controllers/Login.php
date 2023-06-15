@@ -73,7 +73,7 @@ class Login extends BaseController
                 } else {
                     session()->set('LoggedData', $logged_info);
                     session()->set('role', $logged_info['role']);
-                    return  redirect()->to('dashboard/' . Hash::path('index'));
+                    return  redirect()->to('dashboard/index');
                 }
             }
         }
@@ -103,7 +103,7 @@ class Login extends BaseController
                     $subject = 'Recover Password';
                     $message = 'Hello ' . $logged_info['name'] . ', Your new password ' . $new_password;
                     $email = \Config\Services::email();
-                    $email->setTo('stoswebsolutions@gmail.com');
+                    $email->setTo('swamy.vitasoft@gmail.com');
                     $email->setFrom('info@greenindiachallenge.live', '');
                     $email->setSubject($subject);
                     $email->setMessage($message);

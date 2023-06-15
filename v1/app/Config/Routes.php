@@ -43,6 +43,8 @@ $routes->group('/', ['filter' => 'noauth'], function ($routes) {
 $routes->group('/', ['filter' => 'auth'], function ($routes) {
     $routes->group('dashboard/', static function ($routes) {
         $routes->get('index', 'Dashboard::index');
+        $routes->get('changepwd', 'Dashboard::changepwd');
+        $routes->post('updatepwd', 'Dashboard::updatepwd');
     });
 });
 $routes->get('logout', 'Login::logout');
