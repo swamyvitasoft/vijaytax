@@ -107,15 +107,11 @@
     jQuery(function($) {
 
         $(document).on("click", ".income", function(e) {
-            $.redirect("<?= site_url() ?>dashboard/income", {
-                "income": 'income'
-            }, "POST");
+            window.location.href = "<?= site_url() ?>dashboard/income";
         });
 
         $(document).on("click", ".expense", function(e) {
-            $.redirect("<?= site_url() ?>dashboard/expense", {
-                "expense": 'expense'
-            }, "POST");
+            window.location.href = "<?= site_url() ?>dashboard/expense";
         });
 
         $(document).on("click", ".today", function(e) {

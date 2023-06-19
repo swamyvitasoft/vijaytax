@@ -69,6 +69,11 @@
                                     <small class="text-danger"><?= !empty(session()->getFlashdata('validation')) ? display_error(session()->getFlashdata('validation'), 'pAmount') : '' ?></small>
                                 </div>
                                 <div class="form-group mt-3">
+                                    <label for="dAmount" class="form-label">Due Amount</label>
+                                    <input type="number" name="dAmount" class="form-control form-control-lg" id="dAmount" placeholder="Due Amount" value="<?= set_value('dAmount') ?>">
+                                    <small class="text-danger"><?= !empty(session()->getFlashdata('validation')) ? display_error(session()->getFlashdata('validation'), 'dAmount') : '' ?></small>
+                                </div>
+                                <div class="form-group mt-3">
                                     <label for="paymentType" class="form-label">Payment Type</label><br>
                                     <input type="radio" class="form-check-input paymentType" name="paymentType" id="paymentType_credit" value="Credit">Credit
                                     <input type="radio" class="form-check-input paymentType" name="paymentType" id="paymentType_cash" value="Cash">Cash

@@ -48,8 +48,10 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
         $routes->post('today', 'Dashboard::today');
         $routes->post('month', 'Dashboard::month');
         $routes->post('year', 'Dashboard::year');
-        $routes->post('income', 'Dashboard::income');
-        $routes->post('expense', 'Dashboard::expense');
+        $routes->get('income', 'Dashboard::income');
+        $routes->post('incomeAction', 'Dashboard::incomeAction');
+        $routes->get('expense', 'Dashboard::expense');
+        $routes->post('expenseAction', 'Dashboard::expenseAction');
     });
 });
 $routes->get('logout', 'Login::logout');

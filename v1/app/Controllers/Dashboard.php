@@ -3,17 +3,23 @@
 namespace App\Controllers;
 
 use App\Libraries\Hash;
+use App\Models\ExpenseModel;
+use App\Models\IncomeModel;
 use App\Models\LoginModel;
 
 class Dashboard extends BaseController
 {
     private $loggedInfo;
     private $loginModel;
+    private $incomeModel;
+    private $expenseModel;
 
     public function __construct()
     {
         $this->loginModel = new LoginModel();
         $this->loggedInfo = session()->get('LoggedData');
+        $this->incomeModel = new IncomeModel();
+        $this->expenseModel = new ExpenseModel();
     }
 
     public function index()
@@ -81,6 +87,98 @@ class Dashboard extends BaseController
             . view('dashboard/income')
             . view('common/bottom');
     }
+    public function incomeAction()
+    {
+        $validation = $this->validate([
+            'incomeType' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'required.'
+                ]
+            ],
+            'panNo' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'required.'
+                ]
+            ],
+            'name' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'required.'
+                ]
+            ],
+            'mobile' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'required.'
+                ]
+            ],
+            'year' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'required.'
+                ]
+            ],
+            'tAmount' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'required.'
+                ]
+            ],
+            'pAmount' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'required.'
+                ]
+            ],
+            'dAmount' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'required.'
+                ]
+            ],
+            'paymentType' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'required.'
+                ]
+            ],
+            'note' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'required.'
+                ]
+            ]
+        ]);
+        if (!$validation) {
+            return  redirect()->back()->with('validation', $this->validator)->withInput();
+        } else {
+            $inputData = [
+                'incomeType' => $this->request->getPost("incomeType"),
+                'panNo' => $this->request->getPost("panNo"),
+                'name' => $this->request->getPost("name"),
+                'mobile' => $this->request->getPost("mobile"),
+                'year' => $this->request->getPost("year"),
+                'tAmount' => $this->request->getPost("tAmount"),
+                'pAmount' => $this->request->getPost("pAmount"),
+                'dAmount' => $this->request->getPost("dAmount"),
+                'paymentType' => $this->request->getPost("paymentType"),
+                'note' => $this->request->getPost("note"),
+                'login_id' => $this->loggedInfo['login_id'],
+                'status' => 1,
+                'createDate' => date('Y-m-d H:i:s'),
+                'modifyDate' => date('Y-m-d H:i:s')
+            ];
+            $query = $this->incomeModel->insert($inputData);
+            $incomeId = $this->incomeModel->getInsertID();
+        }
+        if (!$query) {
+            return  redirect()->back()->with('fail', 'Something went wrong Input Data.')->withInput();
+        } else {
+            return  redirect()->to('dashboard/index')->with('success', 'Congratulations! Saved');
+        }
+    }
     public function expense()
     {
         $data = [
@@ -91,6 +189,56 @@ class Dashboard extends BaseController
         return view('common/top', $data)
             . view('dashboard/expense')
             . view('common/bottom');
+    }
+    public function expenseAction()
+    {
+        $validation = $this->validate([
+            'expenseType' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'required.'
+                ]
+            ],
+            'pAmount' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'required.'
+                ]
+            ],
+            'paymentType' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'required.'
+                ]
+            ],
+            'note' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'required.'
+                ]
+            ]
+        ]);
+        if (!$validation) {
+            return  redirect()->back()->with('validation', $this->validator)->withInput();
+        } else {
+            $inputData = [
+                'expenseType' => $this->request->getPost("expenseType"),
+                'pAmount' => $this->request->getPost("pAmount"),
+                'paymentType' => $this->request->getPost("paymentType"),
+                'note' => $this->request->getPost("note"),
+                'login_id' => $this->loggedInfo['login_id'],
+                'status' => 1,
+                'createDate' => date('Y-m-d H:i:s'),
+                'modifyDate' => date('Y-m-d H:i:s')
+            ];
+            $query = $this->expenseModel->insert($inputData);
+            $expenseId = $this->expenseModel->getInsertID();
+        }
+        if (!$query) {
+            return  redirect()->back()->with('fail', 'Something went wrong Input Data.')->withInput();
+        } else {
+            return  redirect()->to('dashboard/index')->with('success', 'Congratulations! Saved');
+        }
     }
     public function today()
     {

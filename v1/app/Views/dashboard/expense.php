@@ -46,6 +46,12 @@
                                     <small class="text-danger"><?= !empty(session()->getFlashdata('validation')) ? display_error(session()->getFlashdata('validation'), 'pAmount') : '' ?></small>
                                 </div>
                                 <div class="form-group mt-3">
+                                    <label for="paymentType" class="form-label">Payment Type</label><br>
+                                    <input type="radio" class="form-check-input paymentType" name="paymentType" id="paymentType_credit" value="Credit">Credit
+                                    <input type="radio" class="form-check-input paymentType" name="paymentType" id="paymentType_cash" value="Cash">Cash
+                                    <input type="radio" class="form-check-input paymentType" name="paymentType" id="paymentType_online" value="Online" checked>Online
+                                </div>
+                                <div class="form-group mt-3">
                                     <label for="note" class="form-label">Note</label>
                                     <textarea class="form-control form-control-lg" name="note" id="note"></textarea>
                                     <small class="text-danger"><?= !empty(session()->getFlashdata('validation')) ? display_error(session()->getFlashdata('validation'), 'note') : '' ?></small>
