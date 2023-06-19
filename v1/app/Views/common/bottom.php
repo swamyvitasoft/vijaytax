@@ -18,7 +18,6 @@
     <script src="<?= site_url() ?>assets/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="<?= site_url() ?>assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="<?= site_url() ?>assets/dist/js/pages/chart/chart-page-init.js"></script>
-    <script src="<?= site_url() ?>assets/libs/chart/excanvas.js"></script>
     <script src="<?= site_url() ?>assets/libs/chart/jquery.peity.min.js"></script>
     <script src="<?= site_url() ?>assets/libs/chart/matrix.charts.js"></script>
     <script src="<?= site_url() ?>assets/libs/chart/jquery.flot.pie.min.js"></script>
