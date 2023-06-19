@@ -32,28 +32,38 @@
                                 <table id="zero_config" class="table table-striped table-bordered w-100 d-md-table">
                                     <thead>
                                         <tr>
+                                            <th>Income Type</th>
                                             <th>Name</th>
-                                            <th>Mobile</th>
                                             <th>Total</th>
+                                            <th>Paid</th>
+                                            <th>Due Amount</th>
+                                            <th>Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>a1</td>
-                                            <td>a1 </td>
-                                            <td>a1 </td>
-                                        </tr>
-                                        <tr>
-                                            <td>b1</td>
-                                            <td>b1 </td>
-                                            <td>b1 </td>
-                                        </tr>
+                                        <?php
+                                        foreach ($yearInfo as $index => $row) {
+                                        ?>
+                                            <tr>
+                                                <td><?= $row['incomeType'] ?></td>
+                                                <td><?= $row['name'] ?></td>
+                                                <td><?= $row['tAmount'] ?></td>
+                                                <td><?= $row['pAmount'] ?></td>
+                                                <td><?= $row['dAmount'] ?></td>
+                                                <td><?= date('d-m-Y', strtotime($row['createDate'])) ?> </td>
+                                            </tr>
+                                        <?php
+                                        }
+                                        ?>
                                     </tbody>
                                     <tfoot>
                                         <tr>
+                                            <th>Income Type</th>
                                             <th>Name</th>
-                                            <th>Mobile</th>
                                             <th>Total</th>
+                                            <th>Paid</th>
+                                            <th>Due Amount</th>
+                                            <th>Date</th>
                                         </tr>
                                     </tfoot>
                                 </table>

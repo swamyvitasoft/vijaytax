@@ -116,19 +116,19 @@
 
         $(document).on("click", ".today", function(e) {
             $.redirect("<?= site_url() ?>dashboard/today", {
-                "today": 'today'
+                "today": '<?= date('Y-m-d') ?>'
             }, "POST");
         });
 
         $(document).on("click", ".month", function(e) {
             $.redirect("<?= site_url() ?>dashboard/month", {
-                "month": 'month'
+                "month": '<?= date('Y-m-d') ?>'
             }, "POST");
         });
 
         $(document).on("click", ".year", function(e) {
             $.redirect("<?= site_url() ?>dashboard/year", {
-                "year": 'year'
+                "year": '<?= date('Y-m-d') ?>'
             }, "POST");
         });
 

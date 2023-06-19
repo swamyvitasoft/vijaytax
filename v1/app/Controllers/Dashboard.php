@@ -242,10 +242,17 @@ class Dashboard extends BaseController
     }
     public function today()
     {
+        if (!empty($this->request->getPost("today"))) {
+            $today = $this->request->getPost("today");
+        } else {
+            $today = date('d-m-Y');
+        }
+        $todayInfo = $this->incomeModel->where(['DATE_FORMAT(createDate, "%Y-%m-%d")' => date('Y-m-d', strtotime($today))])->findAll();
         $data = [
             'pageTitle' => 'Vijay | Dashboard',
             'pageHeading' => 'Today',
-            'loggedInfo' => $this->loggedInfo
+            'loggedInfo' => $this->loggedInfo,
+            'todayInfo'    => $todayInfo
         ];
         return view('common/top', $data)
             . view('dashboard/today')
@@ -253,10 +260,17 @@ class Dashboard extends BaseController
     }
     public function month()
     {
+        if (!empty($this->request->getPost("month"))) {
+            $month = $this->request->getPost("month");
+        } else {
+            $month = date('m-Y');
+        }
+        $monthInfo = $this->incomeModel->where(['DATE_FORMAT(createDate, "%Y-%m")' => date('Y-m', strtotime($month))])->findAll();
         $data = [
             'pageTitle' => 'Vijay | Dashboard',
             'pageHeading' => 'Month',
-            'loggedInfo' => $this->loggedInfo
+            'loggedInfo' => $this->loggedInfo,
+            'monthInfo'    => $monthInfo
         ];
         return view('common/top', $data)
             . view('dashboard/month')
@@ -264,10 +278,17 @@ class Dashboard extends BaseController
     }
     public function year()
     {
+        if (!empty($this->request->getPost("year"))) {
+            $year = $this->request->getPost("year");
+        } else {
+            $year = date('Y');
+        }
+        $yearInfo = $this->incomeModel->where(['DATE_FORMAT(createDate, "%Y")' => date('Y', strtotime($year))])->findAll();
         $data = [
             'pageTitle' => 'Vijay | Dashboard',
             'pageHeading' => 'Year',
-            'loggedInfo' => $this->loggedInfo
+            'loggedInfo' => $this->loggedInfo,
+            'yearInfo' => $yearInfo
         ];
         return view('common/top', $data)
             . view('dashboard/year')
