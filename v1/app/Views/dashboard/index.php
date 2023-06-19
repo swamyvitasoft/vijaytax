@@ -18,7 +18,7 @@
             </div>
             <div class="row justify-content-md-center">
                 <div class="col">
-                    <div class="card card-hover customer">
+                    <div class="card card-hover income">
                         <div class="box bg-primary text-center">
                             <h1 class="font-light text-white">
                                 Income
@@ -29,7 +29,7 @@
                 </div>
                 <div class="col">
                     <a href="#">
-                        <div class="card card-hover">
+                        <div class="card card-hover expense">
                             <div class="box bg-success text-center">
                                 <h1 class="font-light text-white">
                                     Expense
@@ -42,7 +42,7 @@
             </div>
             <div class="row justify-content-md-center">
                 <div class="col">
-                    <div class="card card-hover">
+                    <div class="card card-hover today">
                         <div class="box bg-cyan text-center">
                             <h1 class="font-light text-white">
                                 Today
@@ -61,7 +61,7 @@
             </div>
             <div class="row justify-content-md-center">
                 <div class="col">
-                    <div class="card card-hover">
+                    <div class="card card-hover month">
                         <div class="box bg-danger text-center">
                             <h1 class="font-light text-white">
                                 This Month
@@ -80,7 +80,7 @@
             </div>
             <div class="row justify-content-md-center">
                 <div class="col">
-                    <div class="card card-hover">
+                    <div class="card card-hover year">
                         <div class="box bg-warning text-center">
                             <h1 class="font-light text-white">
                                 This Year
@@ -106,8 +106,34 @@
 <script>
     jQuery(function($) {
 
-        $(document).on("click", ".customer", function(e) {
-            $.redirect("<?= site_url() ?>dashboard/index", {}, "POST");
+        $(document).on("click", ".income", function(e) {
+            $.redirect("<?= site_url() ?>dashboard/income", {
+                "income": 'income'
+            }, "POST");
+        });
+
+        $(document).on("click", ".expense", function(e) {
+            $.redirect("<?= site_url() ?>dashboard/expense", {
+                "expense": 'expense'
+            }, "POST");
+        });
+
+        $(document).on("click", ".today", function(e) {
+            $.redirect("<?= site_url() ?>dashboard/today", {
+                "today": 'today'
+            }, "POST");
+        });
+
+        $(document).on("click", ".month", function(e) {
+            $.redirect("<?= site_url() ?>dashboard/month", {
+                "month": 'month'
+            }, "POST");
+        });
+
+        $(document).on("click", ".year", function(e) {
+            $.redirect("<?= site_url() ?>dashboard/year", {
+                "year": 'year'
+            }, "POST");
         });
 
     });
