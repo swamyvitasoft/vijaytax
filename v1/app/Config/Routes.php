@@ -45,6 +45,11 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
         $routes->get('index', 'Dashboard::index');
         $routes->get('changepwd', 'Dashboard::changepwd');
         $routes->post('updatepwd', 'Dashboard::updatepwd');
+        $routes->post('today', 'Dashboard::today');
+        $routes->post('month', 'Dashboard::month');
+        $routes->post('year', 'Dashboard::year');
+        $routes->post('income', 'Dashboard::income');
+        $routes->post('expense', 'Dashboard::expense');
     });
 });
 $routes->get('logout', 'Login::logout');

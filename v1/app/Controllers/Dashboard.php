@@ -70,4 +70,59 @@ class Dashboard extends BaseController
             }
         }
     }
+    public function income()
+    {
+        $data = [
+            'pageTitle' => 'Vijay | Dashboard',
+            'pageHeading' => 'Income',
+            'loggedInfo' => $this->loggedInfo
+        ];
+        return view('common/top', $data)
+            . view('dashboard/income')
+            . view('common/bottom');
+    }
+    public function expense()
+    {
+        $data = [
+            'pageTitle' => 'Vijay | Dashboard',
+            'pageHeading' => 'Expense',
+            'loggedInfo' => $this->loggedInfo
+        ];
+        return view('common/top', $data)
+            . view('dashboard/expense')
+            . view('common/bottom');
+    }
+    public function today()
+    {
+        $data = [
+            'pageTitle' => 'Vijay | Dashboard',
+            'pageHeading' => 'Today',
+            'loggedInfo' => $this->loggedInfo
+        ];
+        return view('common/top', $data)
+            . view('dashboard/today')
+            . view('common/bottom');
+    }
+    public function month()
+    {
+        $data = [
+            'pageTitle' => 'Vijay | Dashboard',
+            'pageHeading' => 'Month',
+            'loggedInfo' => $this->loggedInfo
+        ];
+        return view('common/top', $data)
+            . view('dashboard/month')
+            . view('common/bottom');
+    }
+    public function year()
+    {
+        $data = [
+            'pageTitle' => 'Vijay | Dashboard',
+            'pageHeading' => 'Year',
+            'loggedInfo' => $this->loggedInfo
+        ];
+        return view('common/top', $data)
+            . view('dashboard/year')
+            . view('common/bottom');
+    }
 }
