@@ -70,14 +70,14 @@
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="dAmount" class="form-label">Due Amount</label>
-                                    <input type="number" name="dAmount" class="form-control form-control-lg" id="dAmount" placeholder="Due Amount" value="<?= set_value('dAmount') ?>">
+                                    <input type="number" name="dAmount" class="form-control form-control-lg" id="dAmount" placeholder="Due Amount" value="<?= set_value('dAmount') ?>" readonly>
                                     <small class="text-danger"><?= !empty(session()->getFlashdata('validation')) ? display_error(session()->getFlashdata('validation'), 'dAmount') : '' ?></small>
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="paymentType" class="form-label">Payment Type</label><br>
-                                    <input type="radio" class="form-check-input paymentType" name="paymentType" id="paymentType_credit" value="Credit">Credit
-                                    <input type="radio" class="form-check-input paymentType" name="paymentType" id="paymentType_cash" value="Cash">Cash
-                                    <input type="radio" class="form-check-input paymentType" name="paymentType" id="paymentType_online" value="Online" checked>Online
+                                    <input type="radio" class="form-check-input" name="paymentType" id="paymentType_credit" value="Credit">Credit
+                                    <input type="radio" class="form-check-input" name="paymentType" id="paymentType_cash" value="Cash">Cash
+                                    <input type="radio" class="form-check-input" name="paymentType" id="paymentType_online" value="Online" checked>Online
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="note" class="form-label">Note</label>
@@ -94,3 +94,14 @@
     </div>
     <?= view('common/footer') ?>
 </div>
+<script src="<?= site_url() ?>assets/libs/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#pAmount').on('blur', function() {
+            var tAmount = $('#tAmount').val();
+            var pAmount = $('#pAmount').val();
+            var dAmount = tAmount - pAmount;
+            $('#dAmount').val(dAmount);
+        });
+    });
+</script>

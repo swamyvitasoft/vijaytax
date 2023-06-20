@@ -47,9 +47,9 @@
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="paymentType" class="form-label">Payment Type</label><br>
-                                    <input type="radio" class="form-check-input paymentType" name="paymentType" id="paymentType_credit" value="Credit">Credit
-                                    <input type="radio" class="form-check-input paymentType" name="paymentType" id="paymentType_cash" value="Cash">Cash
-                                    <input type="radio" class="form-check-input paymentType" name="paymentType" id="paymentType_online" value="Online" checked>Online
+                                    <input type="radio" class="form-check-input" name="paymentType" id="paymentType_credit" value="Credit">Credit
+                                    <input type="radio" class="form-check-input" name="paymentType" id="paymentType_cash" value="Cash">Cash
+                                    <input type="radio" class="form-check-input" name="paymentType" id="paymentType_online" value="Online" checked>Online
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="note" class="form-label">Note</label>
