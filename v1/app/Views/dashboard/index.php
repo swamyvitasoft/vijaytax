@@ -19,7 +19,7 @@
 
             <div class="row justify-content-md-center">
                 <div class="col">
-                    <div class="card card-hover year">
+                    <div class="card card-hover yearView">
                         <div class="box bg-cyan text-center">
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Total</h6>
@@ -142,6 +142,12 @@
 <script src="<?= site_url() ?>assets/custom-libs/jquery.redirect.js"></script>
 <script>
     jQuery(function($) {
+
+        $(document).on("click", ".yearView", function(e) {
+            $.redirect("<?= site_url() ?>dashboard/yearView", {
+                "year": 'All'
+            }, "POST");
+        });
 
         $(document).on("click", ".income", function(e) {
             window.location.href = "<?= site_url() ?>dashboard/income";

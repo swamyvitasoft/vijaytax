@@ -322,4 +322,22 @@ class Dashboard extends BaseController
             . view('dashboard/year')
             . view('common/bottom');
     }
+
+    public function yearView()
+    {
+        if ($this->request->getPost("year") == "All") {
+            $yearIncome = $this->incomeModel->select('sum(tAmount) as tAmount,sum(pAmount) as pAmount,sum(dAmount) as dAmount,createDate')->groupBy('DATE_FORMAT(createDate, "%Y")')->orderBy('createDate', 'desc')->findAll();
+            $yearExpense = $this->expenseModel->select('sum(pAmount) as pAmount,createDate')->groupBy('DATE_FORMAT(createDate, "%Y")')->orderBy('createDate', 'desc')->findAll();
+        }
+        $data = [
+            'pageTitle' => 'Vijay | Dashboard',
+            'pageHeading' => 'Year View',
+            'loggedInfo' => $this->loggedInfo,
+            'yearIncome' => $yearIncome,
+            'yearExpense' => $yearExpense
+        ];
+        return view('common/top', $data)
+            . view('dashboard/yearView')
+            . view('common/bottom');
+    }
 }
