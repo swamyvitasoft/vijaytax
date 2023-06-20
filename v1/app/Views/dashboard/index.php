@@ -16,6 +16,31 @@
                     <div class="alert alert-success"><?= session()->getFlashdata('success'); ?></div>
                 <?php endif ?>
             </div>
+
+            <div class="row justify-content-md-center">
+                <div class="col">
+                    <div class="card card-hover year">
+                        <div class="box bg-cyan text-center">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="text-white float-start">Total</h6>
+                                <h6 class="text-white float-end"><?= $income['tAmount'] > 0 ? $income['tAmount'] : 0 ?></h6>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="text-white float-start">Income</h6>
+                                <h6 class="text-white float-end"><?= $income['pAmount'] > 0 ? $income['pAmount'] : 0 ?></h6>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="text-white float-start">Expense</h6>
+                                <h6 class="text-white float-end"><?= $expense['pAmount'] > 0 ? $expense['pAmount'] : 0 ?></h6>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="text-white float-start">Due</h6>
+                                <h6 class="text-white float-end"><?= $income['dAmount'] > 0 ? $income['dAmount'] : 0 ?></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row justify-content-md-center">
                 <div class="col">
                     <div class="card card-hover income">
@@ -45,15 +70,19 @@
                     <div class="card card-hover today">
                         <div class="box bg-cyan text-center">
                             <h1 class="font-light text-white">
-                                Today
+                                Today(<?= $today_tAmount > 0 ? $today_tAmount : 0 ?>)
                             </h1>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Income</h6>
-                                <h6 class="text-white float-end">100</h6>
+                                <h6 class="text-white float-end"><?= $today_pAmount > 0 ? $today_pAmount : 0 ?></h6>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Expense</h6>
-                                <h6 class="text-white float-end">100</h6>
+                                <h6 class="text-white float-end"><?= $today_expense > 0 ? $today_expense : 0 ?></h6>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="text-white float-start">Due</h6>
+                                <h6 class="text-white float-end"><?= $today_dAmount > 0 ? $today_dAmount : 0 ?></h6>
                             </div>
                         </div>
                     </div>
@@ -64,15 +93,19 @@
                     <div class="card card-hover month">
                         <div class="box bg-danger text-center">
                             <h1 class="font-light text-white">
-                                This Month
+                                This Month(<?= $month_tAmount > 0 ? $month_tAmount : 0 ?>)
                             </h1>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Income</h6>
-                                <h6 class="text-white float-end">100</h6>
+                                <h6 class="text-white float-end"><?= $month_pAmount > 0 ? $month_pAmount : 0 ?></h6>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Expense</h6>
-                                <h6 class="text-white float-end">100</h6>
+                                <h6 class="text-white float-end"><?= $month_expense > 0 ? $month_expense : 0 ?></h6>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="text-white float-start">Due</h6>
+                                <h6 class="text-white float-end"><?= $month_dAmount > 0 ? $month_dAmount : 0 ?></h6>
                             </div>
                         </div>
                     </div>
@@ -83,15 +116,19 @@
                     <div class="card card-hover year">
                         <div class="box bg-warning text-center">
                             <h1 class="font-light text-white">
-                                This Year
+                                This Year(<?= $year_tAmount > 0 ? $year_tAmount : 0 ?>)
                             </h1>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Income</h6>
-                                <h6 class="text-white float-end">100</h6>
+                                <h6 class="text-white float-end"><?= $year_pAmount > 0 ? $year_pAmount : 0 ?></h6>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Expense</h6>
-                                <h6 class="text-white float-end">100</h6>
+                                <h6 class="text-white float-end"><?= $year_expense > 0 ? $year_expense : 0 ?></h6>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="text-white float-start">Due</h6>
+                                <h6 class="text-white float-end"><?= $year_dAmount > 0 ? $year_dAmount : 0 ?></h6>
                             </div>
                         </div>
                     </div>

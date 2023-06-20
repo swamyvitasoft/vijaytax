@@ -24,10 +24,38 @@ class Dashboard extends BaseController
 
     public function index()
     {
+        $income = $this->incomeModel->select('sum(tAmount) as tAmount,sum(pAmount) as pAmount,sum(dAmount) as dAmount')->first();
+        $expense = $this->expenseModel->select('sum(pAmount) as pAmount')->first();
+
+        $date = date('d-m-Y');
+        $today = $this->incomeModel->select('sum(tAmount) as tAmount,sum(pAmount) as pAmount,sum(dAmount) as dAmount')->where(['DATE_FORMAT(createDate, "%Y-%m-%d")' => date('Y-m-d', strtotime($date))])->first();
+        $month = $this->incomeModel->select('sum(tAmount) as tAmount,sum(pAmount) as pAmount,sum(dAmount) as dAmount')->where(['DATE_FORMAT(createDate, "%Y-%m")' => date('Y-m', strtotime($date))])->first();
+        $year = $this->incomeModel->select('sum(tAmount) as tAmount,sum(pAmount) as pAmount,sum(dAmount) as dAmount')->where(['DATE_FORMAT(createDate, "%Y")' => date('Y', strtotime($date))])->first();
+
+        $today_expense = $this->expenseModel->select('sum(pAmount) as pAmount')->where(['DATE_FORMAT(createDate, "%Y-%m-%d")' => date('Y-m-d', strtotime($date))])->first();
+        $month_expense = $this->expenseModel->select('sum(pAmount) as pAmount')->where(['DATE_FORMAT(createDate, "%Y-%m")' => date('Y-m', strtotime($date))])->first();
+        $year_expense = $this->expenseModel->select('sum(pAmount) as pAmount')->where(['DATE_FORMAT(createDate, "%Y")' => date('Y', strtotime($date))])->first();
+
         $data = [
             'pageTitle' => 'Vijay | Dashboard',
             'pageHeading' => 'Dashboard',
-            'loggedInfo' => $this->loggedInfo
+            'loggedInfo' => $this->loggedInfo,
+            'income'  => $income,
+            'expense'  => $expense,
+            'today_tAmount' => $today['tAmount'],
+            'today_pAmount' => $today['pAmount'],
+            'today_dAmount' => $today['dAmount'],
+            'today_expense' => $today_expense['pAmount'],
+
+            'month_tAmount' => $month['tAmount'],
+            'month_pAmount' => $month['pAmount'],
+            'month_dAmount' => $month['dAmount'],
+            'month_expense' => $month_expense['pAmount'],
+
+            'year_tAmount' => $year['tAmount'],
+            'year_pAmount' => $year['pAmount'],
+            'year_dAmount' => $year['dAmount'],
+            'year_expense' => $year_expense['pAmount'],
         ];
         return view('common/top', $data)
             . view('dashboard/index')
