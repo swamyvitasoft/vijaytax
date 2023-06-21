@@ -17,15 +17,15 @@
                 <?php endif ?>
             </div>
             <?php
-            foreach ($yearIncome as $index => $row) {
-                $color = ($index % 2 == 0 ? 'bg-cyan' : ($index % 2 > 1 ? 'bg-success' : 'bg-primary'));
+            foreach ($monthIncome as $index => $row) {
+                $color = ($index % 3 == 0 ? 'bg-cyan' : ($index % 3 > 1 ? 'bg-success' : 'bg-primary'));
             ?>
                 <div class="row justify-content-md-center">
                     <div class="col">
-                        <div class="card card-hover monthView">
+                        <div class="card card-hover">
                             <div class="box <?= $color ?> text-center">
                                 <h1 class="font-light text-white">
-                                    <?= date("Y", strtotime($row['createDate'])) ?>
+                                    <?= date("F", strtotime($row['createDate'])) ?>
                                 </h1>
                                 <div class="d-flex justify-content-between">
                                     <h6 class="text-white float-start">Total</h6>
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <h6 class="text-white float-start">Expense</h6>
-                                    <h6 class="text-white float-end"><?= $yearExpense[$index]['pAmount'] > 0 ? $yearExpense[$index]['pAmount'] : 0 ?></h6>
+                                    <h6 class="text-white float-end"><?= $monthExpense[$index]['pAmount'] > 0 ? $monthExpense[$index]['pAmount'] : 0 ?></h6>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <h6 class="text-white float-start">Due</h6>
@@ -54,15 +54,3 @@
     </div>
     <?= view('common/footer') ?>
 </div>
-<script src="<?= site_url() ?>assets/libs/jquery/dist/jquery.min.js"></script>
-<script src="<?= site_url() ?>assets/custom-libs/jquery.redirect.js"></script>
-<script>
-    jQuery(function($) {
-
-        $(document).on("click", ".monthView", function(e) {
-            $.redirect("<?= site_url() ?>dashboard/monthView", {
-                "month": 'All'
-            }, "POST");
-        });
-    });
-</script>

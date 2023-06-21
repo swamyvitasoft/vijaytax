@@ -340,4 +340,22 @@ class Dashboard extends BaseController
             . view('dashboard/yearView')
             . view('common/bottom');
     }
+
+    public function monthView()
+    {
+        if ($this->request->getPost("month") == "All") {
+            $monthIncome = $this->incomeModel->select('sum(tAmount) as tAmount,sum(pAmount) as pAmount,sum(dAmount) as dAmount,createDate')->groupBy('DATE_FORMAT(createDate, "%Y-%m")')->orderBy('createDate', 'desc')->findAll();
+            $monthExpense = $this->expenseModel->select('sum(pAmount) as pAmount,createDate')->groupBy('DATE_FORMAT(createDate, "%Y-%m")')->orderBy('createDate', 'desc')->findAll();
+        }
+        $data = [
+            'pageTitle' => 'Vijay | Dashboard',
+            'pageHeading' => 'Year View',
+            'loggedInfo' => $this->loggedInfo,
+            'monthIncome' => $monthIncome,
+            'monthExpense' => $monthExpense
+        ];
+        return view('common/top', $data)
+            . view('dashboard/monthView')
+            . view('common/bottom');
+    }
 }
