@@ -17,15 +17,15 @@
                 <?php endif ?>
             </div>
             <?php
-            foreach ($monthIncome as $index => $row) {
+            foreach ($dayIncome as $index => $row) {
                 $color = ($index % 3 == 0 ? 'bg-cyan' : ($index % 3 > 1 ? 'bg-success' : 'bg-primary'));
             ?>
                 <div class="row justify-content-md-center">
                     <div class="col">
-                        <div class="card card-hover dayView">
+                        <div class="card card-hover">
                             <div class="box <?= $color ?> text-center">
                                 <h1 class="font-light text-white">
-                                    <?= date("F", strtotime($row['createDate'])) ?>
+                                    <?= date("d-F-Y", strtotime($row['createDate'])) ?>
                                 </h1>
                                 <div class="d-flex justify-content-between">
                                     <h6 class="text-white float-start">Total</h6>
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <h6 class="text-white float-start">Expense</h6>
-                                    <h6 class="text-white float-end"><?= $monthExpense[$index]['pAmount'] > 0 ? $monthExpense[$index]['pAmount'] : 0 ?></h6>
+                                    <h6 class="text-white float-end"><?= $dayExpense[$index]['pAmount'] > 0 ? $dayExpense[$index]['pAmount'] : 0 ?></h6>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <h6 class="text-white float-start">Due</h6>
@@ -54,15 +54,3 @@
     </div>
     <?= view('common/footer') ?>
 </div>
-<script src="<?= site_url() ?>assets/libs/jquery/dist/jquery.min.js"></script>
-<script src="<?= site_url() ?>assets/custom-libs/jquery.redirect.js"></script>
-<script>
-    jQuery(function($) {
-
-        $(document).on("click", ".dayView", function(e) {
-            $.redirect("<?= site_url() ?>dashboard/dayView", {
-                "day": 'All'
-            }, "POST");
-        });
-    });
-</script>

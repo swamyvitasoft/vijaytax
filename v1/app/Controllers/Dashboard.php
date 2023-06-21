@@ -349,13 +349,31 @@ class Dashboard extends BaseController
         }
         $data = [
             'pageTitle' => 'Vijay | Dashboard',
-            'pageHeading' => 'Year View',
+            'pageHeading' => 'Month View',
             'loggedInfo' => $this->loggedInfo,
             'monthIncome' => $monthIncome,
             'monthExpense' => $monthExpense
         ];
         return view('common/top', $data)
             . view('dashboard/monthView')
+            . view('common/bottom');
+    }
+
+    public function dayView()
+    {
+        if ($this->request->getPost("day") == "All") {
+            $dayIncome = $this->incomeModel->select('sum(tAmount) as tAmount,sum(pAmount) as pAmount,sum(dAmount) as dAmount,createDate')->groupBy('DATE_FORMAT(createDate, "%Y-%m-%d")')->orderBy('createDate', 'desc')->findAll();
+            $dayExpense = $this->expenseModel->select('sum(pAmount) as pAmount,createDate')->groupBy('DATE_FORMAT(createDate, "%Y-%m-%d")')->orderBy('createDate', 'desc')->findAll();
+        }
+        $data = [
+            'pageTitle' => 'Vijay | Dashboard',
+            'pageHeading' => 'Day View',
+            'loggedInfo' => $this->loggedInfo,
+            'dayIncome' => $dayIncome,
+            'dayExpense' => $dayExpense
+        ];
+        return view('common/top', $data)
+            . view('dashboard/dayView')
             . view('common/bottom');
     }
 }

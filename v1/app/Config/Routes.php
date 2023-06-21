@@ -47,6 +47,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
         $routes->post('updatepwd', 'Dashboard::updatepwd');
         $routes->post('yearView', 'Dashboard::yearView');
         $routes->post('monthView', 'Dashboard::monthView');
+        $routes->post('dayView', 'Dashboard::dayView');
 
         $routes->post('today', 'Dashboard::today');
         $routes->post('month', 'Dashboard::month');
