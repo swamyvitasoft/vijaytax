@@ -326,4 +326,18 @@ class Dashboard extends BaseController
             . view('dashboard/dayView')
             . view('common/bottom');
     }
+    public function details()
+    {
+        $day = json_encode($this->request->getPost("day"));
+        $details = $this->paymentsModel->select('*')->where(['DATE_FORMAT(paymentDate, "%Y-%m-%d")' => date('Y-m-d', strtotime(json_decode($day)))])->orderBy('income_expense', 'desc')->findAll();
+        $data = [
+            'pageTitle' => 'Vijay | Dashboard',
+            'pageHeading' => 'Day View',
+            'loggedInfo' => $this->loggedInfo,
+            'details' => $details
+        ];
+        return view('common/top', $data)
+            . view('dashboard/details')
+            . view('common/bottom');
+    }
 }

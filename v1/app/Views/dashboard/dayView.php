@@ -48,7 +48,7 @@ $paymentsModel = new PaymentsModel();
             ?>
                 <div class="row justify-content-md-center">
                     <div class="col">
-                        <div class="card card-hover monthView" data-value='{"paymentDate" :"<?= $row['paymentDate'] ?>"}'>
+                        <div class="card card-hover details" data-value='{"paymentDate" :"<?= $row['paymentDate'] ?>"}'>
                             <div class="box <?= $color ?> text-center">
                                 <h1 class="font-light text-white">
                                     <?= date("d-F-Y", strtotime($row['paymentDate'])) ?>
@@ -80,3 +80,16 @@ $paymentsModel = new PaymentsModel();
     </div>
     <?= view('common/footer') ?>
 </div>
+<script src="<?= site_url() ?>assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="<?= site_url() ?>assets/custom-libs/jquery.redirect.js"></script>
+<script>
+    jQuery(function($) {
+        $(document).on("click", ".details", function(e) {
+            var values = $(this).data("value");
+            var day = values.paymentDate;
+            $.redirect("<?= site_url() ?>dashboard/details", {
+                "day": day
+            }, "POST");
+        });
+    });
+</script>
