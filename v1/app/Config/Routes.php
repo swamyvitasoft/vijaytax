@@ -48,10 +48,7 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
         $routes->post('yearView', 'Dashboard::yearView');
         $routes->post('monthView', 'Dashboard::monthView');
         $routes->post('dayView', 'Dashboard::dayView');
-
-        $routes->post('today', 'Dashboard::today');
-        $routes->post('month', 'Dashboard::month');
-        $routes->post('year', 'Dashboard::year');
+        $routes->post('customer', 'Dashboard::customer');
         $routes->get('income', 'Dashboard::income');
         $routes->post('incomeAction', 'Dashboard::incomeAction');
         $routes->get('expense', 'Dashboard::expense');

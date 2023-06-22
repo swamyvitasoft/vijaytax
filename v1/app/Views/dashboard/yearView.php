@@ -1,3 +1,9 @@
+<?php
+
+use App\Models\PaymentsModel;
+
+$paymentsModel = new PaymentsModel();
+?>
 <div class="main-wrapper">
     <div class="preloader">
         <div class="lds-ripple">
@@ -17,31 +23,51 @@
                 <?php endif ?>
             </div>
             <?php
-            foreach ($yearIncome as $index => $row) {
+            foreach ($years as $index => $row) {
                 $color = ($index % 2 == 0 ? 'bg-cyan' : ($index % 2 > 1 ? 'bg-success' : 'bg-primary'));
+                $year = $row['paymentDate'];
+                $yearPayments = $paymentsModel->select('income_expense,sum(tAmount) as tAmount,sum(pAmount) as pAmount,sum(dAmount) as dAmount')->where(['DATE_FORMAT(paymentDate, "%Y")' => date('Y', strtotime($year))])->orderBy('income_expense', 'DESC')->groupBy('income_expense')->findAll();
+                $netAmount = 0;
+                $paidAmount = 0;
+                $pendingAmount = 0;
+                $expenseAmount = 0;
+                if (count($yearPayments) == 1) {
+                    if ($yearPayments[0]['income_expense'] == "Income") {
+                        $netAmount = $yearPayments[0]['tAmount'];
+                        $paidAmount = $yearPayments[0]['pAmount'];
+                        $pendingAmount = $yearPayments[0]['dAmount'];
+                    } else if ($yearPayments[0]['income_expense'] == "Expense") {
+                        $expenseAmount = $yearPayments[0]['pAmount'];
+                    }
+                } else {
+                    $netAmount = $yearPayments[0]['tAmount'];
+                    $paidAmount = $yearPayments[0]['pAmount'];
+                    $pendingAmount = $yearPayments[0]['dAmount'];
+                    $expenseAmount = $yearPayments[1]['pAmount'];
+                }
             ?>
                 <div class="row justify-content-md-center">
                     <div class="col">
-                        <div class="card card-hover monthView">
+                        <div class="card card-hover monthView" data-value='{"paymentDate" :"<?= $row['paymentDate'] ?>"}'>
                             <div class="box <?= $color ?> text-center">
                                 <h1 class="font-light text-white">
-                                    <?= date("Y", strtotime($row['createDate'])) ?>
+                                    <?= date("Y", strtotime($row['paymentDate'])) ?>
                                 </h1>
                                 <div class="d-flex justify-content-between">
-                                    <h6 class="text-white float-start">Total</h6>
-                                    <h6 class="text-white float-end"><?= $row['tAmount'] > 0 ? $row['tAmount'] : 0 ?></h6>
+                                    <h6 class="text-white float-start">Net Amount</h6>
+                                    <h6 class="text-white float-end"><?= $netAmount ?></h6>
                                 </div>
                                 <div class="d-flex justify-content-between">
-                                    <h6 class="text-white float-start">Income</h6>
-                                    <h6 class="text-white float-end"><?= $row['pAmount'] > 0 ? $row['pAmount'] : 0 ?></h6>
+                                    <h6 class="text-white float-start">Paid Amount</h6>
+                                    <h6 class="text-white float-end"><?= $paidAmount ?></h6>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="text-white float-start">Pending Amount</h6>
+                                    <h6 class="text-white float-end"><?= $pendingAmount ?></h6>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <h6 class="text-white float-start">Expense</h6>
-                                    <h6 class="text-white float-end"><?= $yearExpense[$index]['pAmount'] > 0 ? $yearExpense[$index]['pAmount'] : 0 ?></h6>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="text-white float-start">Due</h6>
-                                    <h6 class="text-white float-end"><?= $row['dAmount'] > 0 ? $row['dAmount'] : 0 ?></h6>
+                                    <h6 class="text-white float-end"><?= $expenseAmount ?></h6>
                                 </div>
                             </div>
                         </div>
@@ -58,10 +84,11 @@
 <script src="<?= site_url() ?>assets/custom-libs/jquery.redirect.js"></script>
 <script>
     jQuery(function($) {
-
         $(document).on("click", ".monthView", function(e) {
+            var values = $(this).data("value");
+            var year = values.paymentDate;
             $.redirect("<?= site_url() ?>dashboard/monthView", {
-                "month": 'All'
+                "year": year
             }, "POST");
         });
     });

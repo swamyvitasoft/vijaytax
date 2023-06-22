@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="panNo" class="form-label">Customer PAN</label>
-                                    <input type="text" name="panNo" class="form-control form-control-lg" id="panNo" placeholder="Customer Pan Number" value="<?= set_value('panNo') ?>">
+                                    <input type="text" name="panNo" class="form-control form-control-lg panNo" id="panNo" placeholder="Customer Pan Number" value="<?= set_value('panNo') ?>">
                                     <small class="text-danger"><?= !empty(session()->getFlashdata('validation')) ? display_error(session()->getFlashdata('validation'), 'panNo') : '' ?></small>
                                 </div>
                                 <div class="form-group mt-3">
@@ -102,6 +102,30 @@
             var pAmount = $('#pAmount').val();
             var dAmount = tAmount - pAmount;
             $('#dAmount').val(dAmount);
+        });
+        $(document).on("blur", ".panNo", function(e) {
+            e.preventDefault();
+            var panNo = $(this).val();
+            $.ajax({
+                type: "POST",
+                url: "<?= site_url() ?>dashboard/customer",
+                data: {
+                    panNo: panNo
+                },
+                success: function(data) {
+                    if ($.trim(data.customer_id) == '') {} else {
+                        $("#panNo").val(data.panNo);
+                        $("#name").val(data.name);
+                        $("#mobile").val(data.mobile);
+                        $("#panNo").attr('readonly', 'true');
+                        $("#name").attr('readonly', 'true');
+                        $("#mobile").attr('readonly', 'true');
+                    }
+                },
+                error: function(data) {
+                    alert('network error try again.');
+                },
+            });
         });
     });
 </script>
