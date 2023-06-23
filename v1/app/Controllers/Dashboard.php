@@ -24,9 +24,9 @@ class Dashboard extends BaseController
     {
         $payments = $this->paymentsModel->select('sum(tAmount) as tAmount,sum(pAmount) as pAmount,sum(dAmount) as dAmount')->orderBy('income_expense', 'DESC')->groupBy('income_expense')->findAll();
         $date = date('d-m-Y');
-        $paymentsToday = $this->paymentsModel->select('sum(tAmount) as tAmount,sum(pAmount) as pAmount,sum(dAmount) as dAmount')->where(['DATE_FORMAT(paymentDate, "%Y-%m-%d")' => date('Y-m-d', strtotime($date))])->orderBy('income_expense', 'DESC')->groupBy('income_expense')->findAll();
-        $paymentsMonth = $this->paymentsModel->select('sum(tAmount) as tAmount,sum(pAmount) as pAmount,sum(dAmount) as dAmount')->where(['DATE_FORMAT(paymentDate, "%Y-%m")' => date('Y-m', strtotime($date))])->orderBy('income_expense', 'DESC')->groupBy('income_expense')->findAll();
-        $paymentsYear = $this->paymentsModel->select('sum(tAmount) as tAmount,sum(pAmount) as pAmount,sum(dAmount) as dAmount')->where(['DATE_FORMAT(paymentDate, "%Y")' => date('Y', strtotime($date))])->orderBy('income_expense', 'DESC')->groupBy('income_expense')->findAll();
+        $paymentsToday = $this->paymentsModel->select('income_expense,sum(tAmount) as tAmount,sum(pAmount) as pAmount,sum(dAmount) as dAmount')->where(['DATE_FORMAT(paymentDate, "%Y-%m-%d")' => date('Y-m-d', strtotime($date))])->orderBy('income_expense', 'DESC')->groupBy('income_expense')->findAll();
+        $paymentsMonth = $this->paymentsModel->select('income_expense,sum(tAmount) as tAmount,sum(pAmount) as pAmount,sum(dAmount) as dAmount')->where(['DATE_FORMAT(paymentDate, "%Y-%m")' => date('Y-m', strtotime($date))])->orderBy('income_expense', 'DESC')->groupBy('income_expense')->findAll();
+        $paymentsYear = $this->paymentsModel->select('income_expense,sum(tAmount) as tAmount,sum(pAmount) as pAmount,sum(dAmount) as dAmount')->where(['DATE_FORMAT(paymentDate, "%Y")' => date('Y', strtotime($date))])->orderBy('income_expense', 'DESC')->groupBy('income_expense')->findAll();
         $data = [
             'pageTitle' => 'Vijay | Dashboard',
             'pageHeading' => 'Dashboard',
@@ -185,11 +185,13 @@ class Dashboard extends BaseController
             $custom = $this->customersModel->where('panNo', $panNo)->first();
             if (!empty($custom)) {
                 $customer_id = $custom['customer_id'];
+                $mobile = $custom['mobile'];
             } else {
+                $mobile = $this->request->getPost("mobile");
                 $customer = [
                     'panNo' => $panNo,
                     'name' => $this->request->getPost("name"),
-                    'mobile' => $this->request->getPost("mobile"),
+                    'mobile' => $mobile,
                     'login_id' => $this->loggedInfo['login_id'],
                     'status' => 1,
                     'createDate' => date('Y-m-d H:i:s'),
@@ -213,11 +215,25 @@ class Dashboard extends BaseController
             ];
             $query = $this->paymentsModel->insert($inputData);
             $paymentId  = $this->paymentsModel->getInsertID();
+            $data = [
+                'data' => $inputData,
+                'paymentId' => $paymentId
+            ];
         }
         if (!$query) {
             return  redirect()->back()->with('fail', 'Something went wrong Input Data.')->withInput();
         } else {
-            return  redirect()->to('dashboard/index')->with('success', 'Congratulations! Saved');
+            $dompdf = new \Dompdf\Dompdf();
+            $dompdf->loadHtml(view('dashboard/printI', $data));
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+            $output = $dompdf->output();
+            $fileName = 'vijay' . $paymentId . '.pdf';
+            $path = "assets/invoice/" . $fileName;
+            file_put_contents($path, $output);
+            $path = site_url($path);
+            $filePath = "<a href='https://wa.me/91{$mobile}?text={$path}'>Download PDF</a>";
+            return  redirect()->to('dashboard/index')->with('success', 'Payment Done ' . $filePath);
         }
     }
     public function expense()
@@ -278,11 +294,25 @@ class Dashboard extends BaseController
             ];
             $query = $this->paymentsModel->insert($inputData);
             $paymentId = $this->paymentsModel->getInsertID();
+            $data = [
+                'data' => $inputData,
+                'paymentId' => $paymentId
+            ];
         }
         if (!$query) {
             return  redirect()->back()->with('fail', 'Something went wrong Input Data.')->withInput();
         } else {
-            return  redirect()->to('dashboard/index')->with('success', 'Congratulations! Saved');
+            $dompdf = new \Dompdf\Dompdf();
+            $dompdf->loadHtml(view('dashboard/print', $data));
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+            $output = $dompdf->output();
+            $fileName = 'vijay' . $paymentId . '.pdf';
+            $path = "assets/invoice/" . $fileName;
+            file_put_contents($path, $output);
+            $path = site_url($path);
+            $filePath = "<a href='https://wa.me/919490043228?text={$path}'>Download PDF</a>";
+            return  redirect()->to('dashboard/index')->with('success', 'Payment Done ' . $filePath);
         }
     }
     public function yearView()
