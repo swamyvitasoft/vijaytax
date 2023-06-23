@@ -71,21 +71,41 @@
                             <h1 class="font-light text-white">
                                 Today
                             </h1>
+                            <?php
+                            $netAmount = 0;
+                            $paidAmount = 0;
+                            $pendingAmount = 0;
+                            $expenseAmount = 0;
+                            if (count($paymentsToday) == 1) {
+                                if ($paymentsToday[0]['income_expense'] == "Income") {
+                                    $netAmount = $paymentsToday[0]['tAmount'];
+                                    $paidAmount = $paymentsToday[0]['pAmount'];
+                                    $pendingAmount = $paymentsToday[0]['dAmount'];
+                                } else if ($paymentsToday[0]['income_expense'] == "Expense") {
+                                    $expenseAmount = $paymentsToday[0]['pAmount'];
+                                }
+                            } else {
+                                $netAmount = $paymentsToday[0]['tAmount'];
+                                $paidAmount = $paymentsToday[0]['pAmount'];
+                                $pendingAmount = $paymentsToday[0]['dAmount'];
+                                $expenseAmount = $paymentsToday[1]['pAmount'];
+                            }
+                            ?>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Net Amount</h6>
-                                <h6 class="text-white float-end"><?= $paymentsToday[0]['tAmount'] > 0 ? $paymentsToday[0]['tAmount'] : 0 ?></h6>
+                                <h6 class="text-white float-end"><?= $netAmount ?></h6>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Paid Amount</h6>
-                                <h6 class="text-white float-end"><?= $paymentsToday[0]['pAmount'] > 0 ? $paymentsToday[0]['pAmount'] : 0 ?></h6>
+                                <h6 class="text-white float-end"><?= $paidAmount ?></h6>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Pending Amount</h6>
-                                <h6 class="text-white float-end"><?= $paymentsToday[0]['dAmount'] > 0 ? $paymentsToday[0]['dAmount'] : 0 ?></h6>
+                                <h6 class="text-white float-end"><?= $pendingAmount ?></h6>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Expense</h6>
-                                <h6 class="text-white float-end"><?= $paymentsToday[1]['pAmount'] > 0 ? $paymentsToday[1]['pAmount'] : 0 ?></h6>
+                                <h6 class="text-white float-end"><?= $expenseAmount ?></h6>
                             </div>
                         </div>
                     </div>
@@ -98,21 +118,41 @@
                             <h1 class="font-light text-white">
                                 Month
                             </h1>
+                            <?php
+                            $netAmount = 0;
+                            $paidAmount = 0;
+                            $pendingAmount = 0;
+                            $expenseAmount = 0;
+                            if (count($paymentsMonth) == 1) {
+                                if ($paymentsMonth[0]['income_expense'] == "Income") {
+                                    $netAmount = $paymentsMonth[0]['tAmount'];
+                                    $paidAmount = $paymentsMonth[0]['pAmount'];
+                                    $pendingAmount = $paymentsMonth[0]['dAmount'];
+                                } else if ($paymentsMonth[0]['income_expense'] == "Expense") {
+                                    $expenseAmount = $paymentsMonth[0]['pAmount'];
+                                }
+                            } else {
+                                $netAmount = $paymentsMonth[0]['tAmount'];
+                                $paidAmount = $paymentsMonth[0]['pAmount'];
+                                $pendingAmount = $paymentsMonth[0]['dAmount'];
+                                $expenseAmount = $paymentsMonth[1]['pAmount'];
+                            }
+                            ?>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Net Amount</h6>
-                                <h6 class="text-white float-end"><?= $paymentsMonth[0]['tAmount'] > 0 ? $paymentsMonth[0]['tAmount'] : 0 ?></h6>
+                                <h6 class="text-white float-end"><?= $netAmount ?></h6>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Paid Amount</h6>
-                                <h6 class="text-white float-end"><?= $paymentsMonth[0]['pAmount'] > 0 ? $paymentsMonth[0]['pAmount'] : 0 ?></h6>
+                                <h6 class="text-white float-end"><?= $paidAmount ?></h6>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Pending Amount</h6>
-                                <h6 class="text-white float-end"><?= $paymentsMonth[0]['dAmount'] > 0 ? $paymentsMonth[0]['dAmount'] : 0 ?></h6>
+                                <h6 class="text-white float-end"><?= $pendingAmount ?></h6>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Expense</h6>
-                                <h6 class="text-white float-end"><?= $paymentsMonth[1]['pAmount'] > 0 ? $paymentsMonth[1]['pAmount'] : 0 ?></h6>
+                                <h6 class="text-white float-end"><?= $expenseAmount ?></h6>
                             </div>
                         </div>
                     </div>
@@ -125,21 +165,41 @@
                             <h1 class="font-light text-white">
                                 Year
                             </h1>
+                            <?php
+                            $netAmount = 0;
+                            $paidAmount = 0;
+                            $pendingAmount = 0;
+                            $expenseAmount = 0;
+                            if (count($paymentsYear) == 1) {
+                                if ($paymentsYear[0]['income_expense'] == "Income") {
+                                    $netAmount = $paymentsYear[0]['tAmount'];
+                                    $paidAmount = $paymentsYear[0]['pAmount'];
+                                    $pendingAmount = $paymentsYear[0]['dAmount'];
+                                } else if ($paymentsYear[0]['income_expense'] == "Expense") {
+                                    $expenseAmount = $paymentsYear[0]['pAmount'];
+                                }
+                            } else {
+                                $netAmount = $paymentsYear[0]['tAmount'];
+                                $paidAmount = $paymentsYear[0]['pAmount'];
+                                $pendingAmount = $paymentsYear[0]['dAmount'];
+                                $expenseAmount = $paymentsYear[1]['pAmount'];
+                            }
+                            ?>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Net Amount</h6>
-                                <h6 class="text-white float-end"><?= $paymentsYear[0]['tAmount'] > 0 ? $paymentsYear[0]['tAmount'] : 0 ?></h6>
+                                <h6 class="text-white float-end"><?= $netAmount ?></h6>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Paid Amount</h6>
-                                <h6 class="text-white float-end"><?= $paymentsYear[0]['pAmount'] > 0 ? $paymentsYear[0]['pAmount'] : 0 ?></h6>
+                                <h6 class="text-white float-end"><?= $paidAmount ?></h6>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Pending Amount</h6>
-                                <h6 class="text-white float-end"><?= $paymentsYear[0]['dAmount'] > 0 ? $paymentsYear[0]['dAmount'] : 0 ?></h6>
+                                <h6 class="text-white float-end"><?= $pendingAmount ?></h6>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h6 class="text-white float-start">Expense</h6>
-                                <h6 class="text-white float-end"><?= $paymentsYear[1]['pAmount'] > 0 ? $paymentsYear[1]['pAmount'] : 0 ?></h6>
+                                <h6 class="text-white float-end"><?= $expenseAmount ?></h6>
                             </div>
                         </div>
                     </div>
