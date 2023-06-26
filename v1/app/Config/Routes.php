@@ -54,6 +54,8 @@ $routes->group('/', ['filter' => 'auth'], function ($routes) {
         $routes->post('incomeAction', 'Dashboard::incomeAction');
         $routes->get('expense', 'Dashboard::expense');
         $routes->post('expenseAction', 'Dashboard::expenseAction');
+        $routes->get('search', 'Dashboard::search');
+        $routes->post('searchAction', 'Dashboard::searchAction');
     });
 });
 $routes->get('logout', 'Login::logout');

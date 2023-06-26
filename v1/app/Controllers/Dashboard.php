@@ -370,4 +370,47 @@ class Dashboard extends BaseController
             . view('dashboard/details')
             . view('common/bottom');
     }
+    public function search()
+    {
+        $data = [
+            'pageTitle' => 'Vijay | Dashboard',
+            'pageHeading' => 'Search',
+            'loggedInfo' => $this->loggedInfo
+        ];
+        return view('common/top', $data)
+            . view('dashboard/search')
+            . view('common/bottom');
+    }
+    public function searchAction()
+    {
+        $sdate = '';
+        $validation = $this->validate([
+            'sdate' => [
+                'rules'  => 'required',
+                'errors' => [
+                    'required' => 'required.'
+                ]
+            ]
+        ]);
+        if (!$validation) {
+            return  redirect()->back()->with('validation', $this->validator)->withInput();
+        } else {
+            if ($this->request->getPost("edate") != null) {
+                $edate = $this->request->getPost("edate");
+                $sdate = $this->request->getPost("sdate");
+            } else {
+                $sdate = $this->request->getPost("sdate");
+            }
+            $searchData = $this->paymentsModel->select('*,sum(tAmount) as tAmount,sum(pAmount) as pAmount,sum(dAmount) as dAmount')->where(['DATE_FORMAT(paymentDate, "%Y-%m-%d") >=' => date('Y-m-d', strtotime('' . $sdate)), 'DATE_FORMAT(paymentDate, "%Y-%m-%d") <=' => date('Y-m-d', strtotime($edate))])->orderBy('income_expense', 'DESC')->groupBy('income_expense')->findAll();
+            $data = [
+                'pageTitle' => 'Vijay | Dashboard',
+                'pageHeading' => 'Dashboard',
+                'loggedInfo' => $this->loggedInfo,
+                'searchData' => $searchData
+            ];
+            return view('common/top', $data)
+                . view('dashboard/search')
+                . view('common/bottom');
+        }
+    }
 }
