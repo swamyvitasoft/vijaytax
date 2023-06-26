@@ -39,7 +39,7 @@ $paymentsModel = new PaymentsModel();
                     } else if ($dayPayments[0]['income_expense'] == "Expense") {
                         $expenseAmount = $dayPayments[0]['pAmount'];
                     }
-                } else {
+                } else if (count($dayPayments) == 2) {
                     $netAmount = $dayPayments[0]['tAmount'];
                     $paidAmount = $dayPayments[0]['pAmount'];
                     $pendingAmount = $dayPayments[0]['dAmount'];

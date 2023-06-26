@@ -39,7 +39,7 @@ $paymentsModel = new PaymentsModel();
                     } else if ($yearPayments[0]['income_expense'] == "Expense") {
                         $expenseAmount = $yearPayments[0]['pAmount'];
                     }
-                } else {
+                } else if (count($yearPayments) == 2) {
                     $netAmount = $yearPayments[0]['tAmount'];
                     $paidAmount = $yearPayments[0]['pAmount'];
                     $pendingAmount = $yearPayments[0]['dAmount'];

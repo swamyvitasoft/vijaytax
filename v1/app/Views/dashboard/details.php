@@ -24,71 +24,67 @@ $customersModel = new CustomersModel();
                     <div class="alert alert-success"><?= session()->getFlashdata('success'); ?></div>
                 <?php endif ?>
             </div>
-            <div class="row justify-content-md-center">
-                <div class="col">
-                    <div class="card card-hover">
-                        <div class="card-body">
-                            <div class="adv-table">
-                                <table id="zero_config" class="table table-striped table-bordered w-100 d-md-table">
-                                    <thead>
-                                        <tr>
-                                            <th>PAN</th>
-                                            <th>Paid</th>
-                                            <th>Type</th>
-                                            <th>Name</th>
-                                            <th>Mobile</th>
-                                            <th>Category</th>
-                                            <th>Total</th>
-                                            <th>Pending</th>
-                                            <th>Date</th>
-                                            <th>Year</th>
-                                            <th>Note</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        foreach ($details as $index => $row) {
-                                            $customer_id = $row['customer_id'];
-                                            $row1 = $customersModel->where('customer_id', $customer_id)->first();
-                                        ?>
-                                            <tr>
-                                                <td><?= $row1['panNo'] ?></td>
-                                                <td><?= $row['pAmount'] ?></td>
-                                                <td><?= $row['income_expense'] ?></td>
-                                                <td><?= $row1['name'] ?></td>
-                                                <td><?= $row1['mobile'] ?></td>
-                                                <td><?= $row['categoryType'] ?></td>
-                                                <td><?= $row['tAmount'] ?></td>
-                                                <td><?= $row['dAmount'] ?></td>
-                                                <td><?= date('d-m-Y', strtotime($row['paymentDate'])) ?> </td>
-                                                <td><?= $row['year'] ?></td>
-                                                <td><?= $row['note'] ?></td>
-                                            </tr>
-                                        <?php
-                                        }
-                                        ?>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>PAN</th>
-                                            <th>Paid</th>
-                                            <th>Type</th>
-                                            <th>Name</th>
-                                            <th>Mobile</th>
-                                            <th>Category</th>
-                                            <th>Total</th>
-                                            <th>Pending</th>
-                                            <th>Date</th>
-                                            <th>Year</th>
-                                            <th>Note</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
+            <?php
+            foreach ($details as $index => $row) {
+                $customer_id = $row['customer_id'];
+                $row1 = $customersModel->where('customer_id', $customer_id)->first();
+                // $color = ($index % 3 == 0 ? 'bg-cyan' : ($index % 3 > 1 ? 'bg-success' : 'bg-primary'));
+                $color = 'bg-white rounded shadow';
+            ?>
+                <div class="row justify-content-md-center">
+                    <div class="col">
+                        <div class="card card-hover">
+                            <div class="box <?= $color ?> text-center">
+                                <h1 class="font-light text-dark">
+                                    <?= $row1['panNo'] ?>
+                                </h1>
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="text-dark float-start">Full Name</h6>
+                                    <h6 class="text-dark float-end"><?= $row1['name'] ?></h6>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="text-dark float-start">Mobile</h6>
+                                    <h6 class="text-dark float-end"><?= $row1['mobile'] ?></h6>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="text-dark float-start">Category</h6>
+                                    <h6 class="text-dark float-end"><?= $row['categoryType'] ?></h6>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="text-dark float-start">Income/Expense</h6>
+                                    <h6 class="text-dark float-end"><?= $row['income_expense'] ?></h6>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="text-dark float-start">Total Amount</h6>
+                                    <h6 class="text-dark float-end"><?= $row['tAmount'] ?></h6>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="text-dark float-start">Paid Amount</h6>
+                                    <h6 class="text-dark float-end"><?= $row['pAmount'] ?></h6>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="text-dark float-start">Due Amount</h6>
+                                    <h6 class="text-dark float-end"><?= $row['dAmount'] ?></h6>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="text-dark float-start">Year</h6>
+                                    <h6 class="text-dark float-end"><?= $row['year'] ?></h6>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="text-dark float-start">Payment Date</h6>
+                                    <h6 class="text-dark float-end"><?= date('d-m-Y', strtotime($row['paymentDate'])) ?></h6>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="text-dark float-start">Note</h6>
+                                    <h6 class="text-dark float-end"><?= $row['note'] ?></h6>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php
+            }
+            ?>
         </div>
     </div>
     <?= view('common/footer') ?>

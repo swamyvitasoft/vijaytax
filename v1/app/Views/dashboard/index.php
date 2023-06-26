@@ -84,7 +84,7 @@
                                 } else if ($paymentsToday[0]['income_expense'] == "Expense") {
                                     $expenseAmount = $paymentsToday[0]['pAmount'];
                                 }
-                            } else {
+                            } else if (count($paymentsToday) == 2) {
                                 $netAmount = $paymentsToday[0]['tAmount'];
                                 $paidAmount = $paymentsToday[0]['pAmount'];
                                 $pendingAmount = $paymentsToday[0]['dAmount'];
@@ -131,7 +131,7 @@
                                 } else if ($paymentsMonth[0]['income_expense'] == "Expense") {
                                     $expenseAmount = $paymentsMonth[0]['pAmount'];
                                 }
-                            } else {
+                            } else if (count($paymentsMonth) == 2) {
                                 $netAmount = $paymentsMonth[0]['tAmount'];
                                 $paidAmount = $paymentsMonth[0]['pAmount'];
                                 $pendingAmount = $paymentsMonth[0]['dAmount'];
@@ -178,7 +178,7 @@
                                 } else if ($paymentsYear[0]['income_expense'] == "Expense") {
                                     $expenseAmount = $paymentsYear[0]['pAmount'];
                                 }
-                            } else {
+                            } else if (count($paymentsYear) == 2) {
                                 $netAmount = $paymentsYear[0]['tAmount'];
                                 $paidAmount = $paymentsYear[0]['pAmount'];
                                 $pendingAmount = $paymentsYear[0]['dAmount'];
