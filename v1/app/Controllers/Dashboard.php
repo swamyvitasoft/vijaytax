@@ -413,4 +413,49 @@ class Dashboard extends BaseController
                 . view('common/bottom');
         }
     }
+    public function customers()
+    {
+        $customers = $this->customersModel->where('customer_id <>', 1)->findAll();
+        $data = [
+            'pageTitle' => 'Vijay | Dashboard',
+            'pageHeading' => 'Dashboard',
+            'loggedInfo' => $this->loggedInfo,
+            'customers' => $customers
+        ];
+        return view('common/top', $data)
+            . view('dashboard/customers')
+            . view('common/bottom');
+    }
+    public function view()
+    {
+        $customer_id = $this->request->getPost("customer_id");
+        $payments = $this->paymentsModel->where(['customer_id' => $customer_id])->orderBy('dAmount', 'DESC')->findAll();
+        $data = [
+            'pageTitle' => 'Vijay | Dashboard',
+            'pageHeading' => 'Dashboard',
+            'loggedInfo' => $this->loggedInfo,
+            'payments' => $payments
+        ];
+        return view('common/top', $data)
+            . view('dashboard/view')
+            . view('common/bottom');
+    }
+    public function viewAction()
+    {
+        $paymentId = $this->request->getPost("paymentId");
+        $amount = $this->request->getPost("amount");
+        $payments = $this->paymentsModel->where(['paymentId' => $paymentId])->first();
+        $pAmount = $payments['pAmount'] + $amount;
+        $dAmount = $payments['dAmount'] - $amount;
+        $inputData = array(
+            'pAmount' => $pAmount,
+            'dAmount' => $dAmount
+        );
+        $query = $this->paymentsModel->update($paymentId, $inputData);
+        if (!$query) {
+            return  redirect()->to('dashboard/customers')->with('fail', 'Something went wrong Input Data.')->withInput();
+        } else {
+            return  redirect()->to('dashboard/customers')->with('success', 'Customer Payment Success');
+        }
+    }
 }
